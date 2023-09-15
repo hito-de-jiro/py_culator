@@ -5,13 +5,11 @@ import nums_from_string
 from datetime import datetime
 from file_handler import overwrite_to_json, get_users_data
 
-
 alert = 'Invalid value!'
 
 
 def run_app(username=None, current_user=False):
-    # Запуск основного циклу
-
+    # Starting the main cycle
     example_foo_regex = re.compile(r'(sin|cos|tg|ctg)\d+')
     example_regex = re.compile(r'\d+\W\d+')
     user_results = []
@@ -19,7 +17,7 @@ def run_app(username=None, current_user=False):
         example = input('Enter an example without spaces '
                         '(like this: 2+4)'
                         '\nor press <enter> to exit.\n ')
-        # Перевірка вводу для зареєстровіаного користувача
+        # Input validation for a registered user
         if current_user:
             if example == '':
                 save_user_data(user_results, username)
@@ -39,7 +37,7 @@ def run_app(username=None, current_user=False):
 
 def run_without_user(current_user, example,
                      example_foo_regex, example_regex):
-    # Перевірка вводу для не зареєстровіаного користувача
+    # Input validation for unregistered user
     if example_foo_regex.findall(example):
         print('You are not eligible for this operation.')
     elif not example_regex.findall(example):
@@ -65,7 +63,7 @@ def calculation(current_user, example):
                 'ctg': ctg,
             })
 
-        # Формування і розв'язок прикладу
+        # Formation and resolution of the example
         for key, operation in operations.items():
             if key in example:
                 values = operation(example)
@@ -77,7 +75,7 @@ def calculation(current_user, example):
 
 
 def add_example_to_user_data(user_results, username):
-    #  Форматування результатів для збереження в JSON
+    #  Formatting the results to save in JSON
     dt = datetime.today().strftime("%H:%M:%S-%Y/%m/%d")
     full_data = {dt: user_results}
     users_data = get_users_data()
@@ -94,7 +92,7 @@ def save_user_data(user_results, username):
 
 
 def additional(example):
-    """Додавання"""
+    """Addition"""
     try:
         a = int(example.partition('+')[0])
         b = int(example.partition('+')[2])
@@ -106,7 +104,7 @@ def additional(example):
 
 
 def subtract(example):
-    """Віднімання"""
+    """Subtraction"""
     try:
         a = int(example.partition('-')[0])
         b = int(example.partition('-')[2])
@@ -118,7 +116,7 @@ def subtract(example):
 
 
 def multiplication(example):
-    """Множеня"""
+    """Multiplication"""
     try:
         a = int(example.partition('*')[0])
         b = int(example.partition('*')[2])
@@ -130,7 +128,7 @@ def multiplication(example):
 
 
 def division(example):
-    """Ділення і виключення ділення на нуль"""
+    """Division and elimination of division by zero"""
     try:
         a = int(example.partition('/')[0])
         b = int(example.partition('/')[2])
@@ -146,7 +144,7 @@ def division(example):
 
 
 def sin(example):
-    """Функція синус"""
+    """Sine function"""
     x = nums_from_string.get_nums(example)
     try:
         res = math.sin(float(x[0]))
@@ -157,7 +155,7 @@ def sin(example):
 
 
 def cos(example):
-    """Функція косинус"""
+    """Cosine function"""
     x = nums_from_string.get_nums(example)
     try:
         res = math.cos(float(x[0]))
@@ -168,7 +166,7 @@ def cos(example):
 
 
 def tg(example):
-    """Функція тангенс"""
+    """Tangent function"""
     x = nums_from_string.get_nums(example)
     try:
         res = math.tan(float(x[0]))
@@ -179,7 +177,7 @@ def tg(example):
 
 
 def ctg(example):
-    """Функція котангенс"""
+    """Cotangent function"""
     x = nums_from_string.get_nums(example)
     try:
         res = 1 / math.tan(float(x[0]))

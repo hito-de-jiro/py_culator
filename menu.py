@@ -17,7 +17,7 @@ def main():
             user_menu()
 
         elif cmd.strip() == '2':
-            #  Реєстрація нового користувача і запуск мазгулятора
+            #  Registration of a new user and launch of the massager
             current_user = add_new_user()
             username = current_user[0]
             run_app(username, current_user=True)
@@ -60,7 +60,6 @@ def user_menu():
 
             elif answ_clear == 'n':
                 print('Cleaning aborted.')
-                # continue
             else:
                 print('Wrong input!')
 

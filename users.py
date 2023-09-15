@@ -4,15 +4,15 @@ from file_handler import get_users_data, write_to_json
 
 
 def add_new_user():
-    """Створює нового користувача і вертає його кортеж (логін і пароль)"""
+    """Creates a new user and returns his tuple (login and password)"""
     while True:
-        # Створення списку логінів дійсних користувачів
+        # Creation of a list of logins of valid users
         current_users_login = []
         for users_dict in get_users_data():
             for users in users_dict.keys():
                 current_users_login.append(users)
 
-        # Введеня і перевірка на збіг логіна
+        # Entering and verifying that the login matches
         username = input('Enter name: ')
         if not username or re.findall(r'\s+', username):
             print('Input data must be free of blanks and spaces')
@@ -20,27 +20,26 @@ def add_new_user():
             if username in current_users_login:
                 print('Name is used!')
             else:
-                # якщо збігів не зайдено -- введення і перевірка пароля
+                # if there are no matches - entering and checking the password
                 print('Password requirements:\n'
                       '1. Minimum of 8 characters, including spaces\n'
                       'but cannot consist of only spaces.\n'
                       '2. The password must contain numbers, letters and\n'
                       'special characters.')
                 password = create_user_password()
-                # створення нового користувача
+                # creating a new user
                 new_user = {
                     'password': str(password),
                     'log': {},
                 }
                 user_data = {username: new_user}
-                # Додавання нового користувача в JSON
+                # Adding a new user in JSON
                 write_to_json(user_data)
                 return username, True
 
 
 def create_user_password():
-    #  Створення і перевірка надійного пароля
-
+    #  Creating and checking a strong password
     while True:
         password = input('Password: ')
         if not password or re.findall(r'^\s+$', password):
@@ -68,7 +67,7 @@ def _check_password(password):
 
 
 def authorization():
-    # Авторизація користувача
+    # User authorization
     while True:
         user_login = input('Enter your login '
                            'or press <ENTER> to exit: ')
@@ -88,7 +87,7 @@ def authorization():
 
 
 def check_user(user_login, user_password):
-    # Перевірка правильності вводу логіна, пароля
+    # Checking the correctness of entering the login and password
     for user_data in get_users_data():
         if user_login in user_data:
             login_is_found = True
