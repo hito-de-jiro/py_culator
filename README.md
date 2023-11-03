@@ -1,2 +1,2 @@
 # py_culator
-Python curkulator
+Calculator using Python,  Log in csv
